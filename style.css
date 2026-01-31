@@ -1,0 +1,187 @@
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #ffadb0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+#startScreen {
+  text-align: center;
+}
+
+#startBtn {
+  font-size: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+#viewer {
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+
+/* Viewer, pouch wrapper and card */
+#viewer {
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+
+#pouchWrapper, #card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  top: 0;
+  left: 0;
+}
+
+/* make the inner pouch image fill the wrapper */
+#pouch {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ripping overlay at the top of the pouch */
+.pouchRip {
+  position: absolute;
+  top: 6%;
+  left: 0;
+  right: 0;
+  height: 22%;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.0), rgba(0,0,0,0.06));
+  opacity: 0;
+  transform-origin: top center;
+}
+
+/* opening state: tilt and show rip */
+#pouchWrapper.opening {
+  transform-origin: 50% 40%;
+  transform: rotateZ(-50deg) translateY(-6%);
+  z-index: 5;
+}
+
+.pouchRip.rip {
+  animation: rip 0.45s ease forwards;
+}
+
+/* tearing tilt on wrapper before reveal */
+.pouchWrapper.tearing {
+  transform-origin: 50% 40%;
+  animation: tiltTear 0.45s ease forwards;
+  z-index: 6;
+}
+
+@keyframes tiltTear {
+  0% { transform: rotateZ(0deg) translateY(0%); }
+  30% { transform: rotateZ(-18deg) translateY(-2%); }
+  60% { transform: rotateZ(-38deg) translateY(-4%); }
+  100% { transform: rotateZ(-45deg) translateY(-6%); }
+}
+
+@keyframes rip {
+  0% { opacity: 0; transform: translateY(-2px) rotate(-2deg) scaleX(1); }
+  40% { opacity: 1; transform: translateY(2px) rotate(2deg) scaleX(1.02); }
+  100% { opacity: 0.85; transform: translateY(-6px) rotate(-6deg) scaleX(0.98); }
+}
+
+/* When card is revealed, raise and enlarge the card */
+#card {
+  opacity: 0;
+  transform: translateY(10%) scale(0.9);
+  z-index: 10;
+  object-fit: contain;
+}
+
+#card.show {
+  opacity: 1;
+  transform: translateY(-8%) scale(1);
+}
+
+/* pouch behind the card: scale down and move back */
+#pouchWrapper.behind {
+  transform: scale(0.8) translateY(6%) rotateZ(-20deg);
+  opacity: 0.95;
+  z-index: 2;
+}
+
+/* closing animation helper */
+#pouchWrapper.closing {
+  transition: transform 0.45s ease;
+  transform: rotateZ(0deg) translateY(0%);
+}
+
+#controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#controls button {
+  font-size: 16px;
+  padding: 10px 18px;
+  border: none;
+  background: linear-gradient(180deg,#ff6b8a 0%, #ff4f6f 100%);
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(255,75,95,0.26), inset 0 -2px 0 rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+}
+
+#controls button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(255,75,95,0.28), inset 0 -2px 0 rgba(0,0,0,0.06);
+}
+
+#controls button:active {
+  transform: translateY(0);
+  filter: brightness(0.98);
+}
+
+#controls button:focus {
+  outline: 2px solid rgba(255,255,255,0.35);
+  outline-offset: 2px;
+}
+
+/* Make the start screen card the same size as the viewer's card */
+#startCard {
+  width: 400px;
+  height: 400px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+/* instructions */
+#instructions {
+  max-width: 420px;
+  margin: 16px auto 0;
+  text-align: left;
+  font-size: 14px;
+  color: #3a2230;
+  background: rgba(255,255,255,0.6);
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+
+#instructions strong { display:block; margin-bottom:6px; }
+
+/* responsive: make viewer and start card scale down on small screens */
+@media (max-width: 480px) {
+  #viewer, #startCard { width: 300px; height: 300px; }
+}

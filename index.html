@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="startScreen">
+  <img src="assets/start-card.png" id="startCard">
+</div>
+
+<div id="app" class="hidden">
+  <div id="viewer">
+    <div id="pouchWrapper">
+      <img id="pouch" src="assets/pouch.png">
+      <div class="pouchRip" aria-hidden="true"></div>
+    </div>
+    <img id="card" class="hidden">
+  </div>
+
+  <div id="controls">
+    <button id="prev">← Prev</button>
+    <span id="counter"></span>
+    <button id="next">Next →</button>
+  </div>
+
+  <div id="instructions">
+    <strong>How to use</strong>
+    <ol>
+      <li>Click the pouch to tilt and rip the top; the card will rise out and enlarge.</li>
+      <li>Click again to return the card into the pouch and close it.</li>
+    </ol>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
